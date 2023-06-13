@@ -1,7 +1,28 @@
-!DOCTYPE html
-html
-body
-    h1Météo-RealTimeh1
-    div id=weatherdiv
-body
-html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Météo-RealTime</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Météo-RealTime</h1>
+    <div id="weather"></div>
+
+    <script>
+        $(document).ready(function() {
+            // Récupérer les données météorologiques via l'API weatherapi.com
+            let weatherAPIKey = '022fb623da5846dea00172053230606';
+            let location = 'Paris'; // Modifier avec le lieu souhaité
+
+            let weatherURL = `https://api.weatherapi.com/v1/current.json?key=${weatherAPIKey}&q=${location}`;
+            $.get(weatherURL, function(data) {
+                let tempC = data.current.temp_c;
+                let condition = data.current.condition.text;
+
+                let weatherInfo = `La météo à ${location} est de ${tempC} degrés Celsius. Condition: ${condition}`;
+                $('#weather').text(weatherInfo);
+            });
+        });
+    </script>
+</body>
+</html>
